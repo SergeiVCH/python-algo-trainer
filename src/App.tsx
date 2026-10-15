@@ -119,6 +119,18 @@ const menuGroups = [
         items: [
           {label: 'Функции и процедуры в Python', path: '/python-functions'},
           {label: 'Работа со строками в Python', path: '/string-lab'},
+          {
+            label: 'Процедуры и функции обработки строк',
+            path: '/string-functions-lab',
+          },
+          {
+            label: 'Работа с файлами в Python',
+            path: '/python-files-lab',
+          },
+          {
+            label: 'лгоритмы на графах в Python',
+            path: '/graph-lab',
+          },
         ],
       },
     ],

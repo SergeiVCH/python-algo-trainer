@@ -44,6 +44,8 @@ import SwapHorizIcon from '@mui/icons-material/SwapHoriz'
 import TerminalIcon from '@mui/icons-material/Terminal'
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset'
 import TextFieldsIcon from '@mui/icons-material/TextFields'
+import FunctionsIcon from '@mui/icons-material/Functions'
+import AccountTreeIcon from '@mui/icons-material/AccountTree'
 
 // --- ДАННЫЕ ВЫНЕСЕНЫ ДЛЯ УДОБСТВА ФИЛЬТРАЦИИ ---
 const categories = [
@@ -261,6 +263,27 @@ const categories = [
             icon: <TextFieldsIcon />,
             path: '/string-lab',
             color: '#2196f3',
+          },
+          {
+            title: 'Процедуры и функции обработки строк',
+            desc: 'Изучаем методы find, count, replace и проверки символов для анализа текста в Python.',
+            icon: <FunctionsIcon />,
+            path: '/string-functions-lab',
+            color: '#4caf50',
+          },
+          {
+            title: 'Работа с файлами в Python',
+            desc: 'Интерактивный тренажёр методов open(), read(), write() и append() для текстовых файлов.',
+            icon: <InsertDriveFileIcon />,
+            path: '/python-files-lab',
+            color: '#9c27b0',
+          },
+          {
+            title: 'Алгоритмы на графах в Python',
+            desc: 'Интерактивная визуализация словарей смежности, обхода в ширину (BFS) и в глубину (DFS).',
+            icon: <AccountTreeIcon />,
+            path: '/graph-lab',
+            color: '#3fb950',
           },
         ],
       },
