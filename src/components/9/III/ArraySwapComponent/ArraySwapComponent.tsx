@@ -1,356 +1,291 @@
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import NumbersIcon from '@mui/icons-material/Numbers'
-import PauseIcon from '@mui/icons-material/Pause'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
-import RestartAltIcon from '@mui/icons-material/RestartAlt'
+import ReplayIcon from '@mui/icons-material/Replay'
+import StorageIcon from '@mui/icons-material/Storage'
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz'
-import TextFormatIcon from '@mui/icons-material/TextFormat'
 import {
+  Alert,
   Box,
   Button,
+  Chip,
+  Container,
   Grid,
   Paper,
-  Stack,
-  Tab,
-  Tabs,
+  TextField,
+  Tooltip,
   Typography,
 } from '@mui/material'
-import {useEffect, useRef, useState} from 'react'
-
-const initialArray = [10, 20, 30, 40, 50]
-const initialWord = 'ПИТОН'.split('')
+import { useState } from 'react'
 
 export const ArraySwapComponent = () => {
-  const [mode, setMode] = useState(0)
-  const [data, setData] = useState<any[]>([...initialArray])
-  const [isProcessing, setIsProcessing] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
-  const [activeLine, setActiveLine] = useState<number | null>(null)
-  const [tempValue, setTempValue] = useState<string | number | null>(null)
-  const [pointers, setPointers] = useState<{i: number; j: number} | null>(null)
-  const [explanation, setExplanation] = useState<string>('Нажмите «Старт»')
+  const [array, setArray] = useState<number[]>([15, 8, 23, 4, 42, 16])
+  const [index1, setIndex1] = useState<number>(0)
+  const [index2, setIndex2] = useState<number>(1)
+  const [log, setLog] = useState<string[]>([
+    '💡 Тренажёр инициализирован. Выберите индексы и выполните swap.',
+  ])
 
-  // Используем Ref для мгновенного доступа к состоянию паузы в цикле
-  const isPausedRef = useRef(false)
-
-  useEffect(() => {
-    reset()
-  }, [mode])
-
-  // Функция ожидания с проверкой паузы
-  const wait = async (ms: number) => {
-    return new Promise<void>(async (resolve) => {
-      await new Promise((r) => setTimeout(r, ms))
-      // Если нажата пауза, ждем в бесконечном цикле пока её не отожмут
-      while (isPausedRef.current) {
-        await new Promise((r) => setTimeout(r, 100))
-      }
-      resolve()
-    })
-  }
-
-  const togglePause = () => {
-    isPausedRef.current = !isPausedRef.current
-    setIsPaused(isPausedRef.current)
-    if (isPausedRef.current) {
-      setExplanation('Алгоритм приостановлен. Нажмите «Продолжить»')
-    }
-  }
-
-  const startSwap = async () => {
-    if (isProcessing) return
-    setIsProcessing(true)
-    setIsPaused(false)
-    isPausedRef.current = false
-
-    const currentData = [...data]
-    let i = 0
-    let j = currentData.length - 1
-
-    setExplanation('Начинаем цикл: пока левый индекс i меньше правого j')
-    setActiveLine(3)
-    await wait(1000)
-
-    while (i < j) {
-      setPointers({i, j})
-
-      // 1. temp = A[i]
-      const line1 = mode === 0 ? 4 : 5
-      setActiveLine(line1)
-      setExplanation(
-        `Шаг 1: Берем ${currentData[i]} (индекс ${i}) и кладем в temp`,
-      )
-      setTempValue(currentData[i])
-      await wait(1200)
-
-      // 2. A[i] = A[j]
-      const line2 = mode === 0 ? 5 : 6
-      setActiveLine(line2)
-      setExplanation(
-        `Шаг 2: В ячейку ${i} записываем значение ${currentData[j]} из ячейки ${j}`,
-      )
-      currentData[i] = currentData[j]
-      setData([...currentData])
-      await wait(1200)
-
-      // 3. A[j] = temp
-      const line3 = mode === 0 ? 6 : 7
-      setActiveLine(line3)
-      setExplanation(
-        `Шаг 3: Теперь в ячейку ${j} возвращаем значение ${tempValue ?? currentData[i]} из temp`,
-      )
-      currentData[j] = (tempValue ?? currentData[i]) as any
-      setData([...currentData])
-      setTempValue(null)
-      await wait(1200)
-
-      // 4. Сдвиг
-      const line4 = mode === 0 ? 7 : 8
-      setActiveLine(line4)
-      setExplanation('Сдвигаем границы: i идет вправо, j идет влево')
-      i++
-      j--
-      await wait(800)
+  // --- МЕТОД ПЕРЕСТАНОВКИ (SWAP) ---
+  const handleSwap = () => {
+    if (
+      index1 < 0 ||
+      index1 >= array.length ||
+      index2 < 0 ||
+      index2 >= array.length
+    ) {
+      alert(`Ошибка: индексы должны быть в диапазоне от 0 до ${array.length - 1}`)
+      return
     }
 
-    setActiveLine(mode === 0 ? 8 : 9)
-    setExplanation('Готово! Массив полностью инвертирован.')
-    setIsProcessing(false)
-    setPointers(null)
+    const newArr = [...array]
+    const temp = newArr[index1]
+    newArr[index1] = newArr[index2]
+    newArr[index2] = temp
+
+    setArray(newArr)
+    setLog((prev) => [
+      `arr[${index1}], arr[${index2}] = arr[${index2}], arr[${index1}] (Успешно)`,
+      ...prev,
+    ])
   }
 
-  const reset = () => {
-    isPausedRef.current = false
-    setIsPaused(false)
-    setData(mode === 0 ? [...initialArray] : [...initialWord])
-    setActiveLine(null)
-    setTempValue(null)
-    setPointers(null)
-    setIsProcessing(false)
-    setExplanation(mode === 0 ? 'Режим: Числа' : 'Режим: Строки')
+  const handleReset = () => {
+    setArray([15, 8, 23, 4, 42, 16])
+    setIndex1(0)
+    setIndex2(1)
+    setLog(['🔄 Массив сброшен к исходным значениям.'])
   }
-
-  const codeLines =
-    mode === 0
-      ? [
-          {id: 1, text: `A = [10, 20, 30, 40, 50]`, indent: 0},
-          {id: 2, text: `i, j = 0, len(A) - 1`, indent: 0},
-          {id: 3, text: `while i < j:`, indent: 0},
-          {id: 4, text: `    temp = A[i]`, indent: 4},
-          {id: 5, text: `    A[i] = A[j]`, indent: 4},
-          {id: 6, text: `    A[j] = temp`, indent: 4},
-          {id: 7, text: `    i += 1; j -= 1`, indent: 4},
-          {id: 8, text: `print(A)`, indent: 0},
-        ]
-      : [
-          {id: 1, text: `S = "ПИТОН"`, indent: 0},
-          {id: 2, text: `A = list(S)`, indent: 0},
-          {id: 3, text: `i, j = 0, len(A) - 1`, indent: 0},
-          {id: 4, text: `while i < j:`, indent: 0},
-          {id: 5, text: `    temp = A[i]`, indent: 4},
-          {id: 6, text: `    A[i] = A[j]`, indent: 4},
-          {id: 7, text: `    A[j] = temp`, indent: 4},
-          {id: 8, text: `    i += 1; j -= 1`, indent: 4},
-          {id: 9, text: `print("".join(A))`, indent: 0},
-        ]
 
   return (
-    <Box sx={{p: 3, maxWidth: 1000, margin: '0 auto', color: '#e6edf3'}}>
-      <Stack direction='row' spacing={2} alignItems='center' sx={{mb: 2}}>
-        <SwapHorizIcon sx={{fontSize: 40, color: '#4caf50'}} />
-        <Box>
-          <Typography variant='h4' sx={{fontWeight: 800}}>
-            Перестановка элементов
+    <Container maxWidth='lg' sx={{ py: 6 }}>
+      {/* Шапка компоненты */}
+      <Box sx={{ textAlign: 'center', mb: 5 }}>
+        <Typography
+          variant='h3'
+          sx={{
+            fontWeight: 900,
+            color: '#fff',
+            mb: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 2,
+          }}>
+          <StorageIcon sx={{ fontSize: 45, color: '#2196f3' }} />
+          Перестановка элементов (Swap)
+        </Typography>
+        <Typography variant='h6' sx={{ color: '#8b949e' }}>
+          Интерактивный метод обмена элементов в списках Python
+        </Typography>
+      </Box>
+
+      {/* Визуализация ячеек памяти */}
+      <Paper
+        sx={{
+          p: 4,
+          bgcolor: '#0d1117',
+          border: '1px solid #30363d',
+          borderRadius: 4,
+          mb: 4,
+        }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+          <Typography
+            variant='subtitle1'
+            sx={{ color: '#58a6ff', fontWeight: 'bold' }}>
+            Memory View (Массив arr):
           </Typography>
+          <Chip
+            label={`len = ${array.length}`}
+            variant='outlined'
+            sx={{ color: '#fff', borderColor: '#30363d' }}
+          />
         </Box>
-      </Stack>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, minHeight: 80, justifyContent: 'center' }}>
+          {array.map((val, idx) => {
+            const isSelected = idx === index1 || idx === index2
+            return (
+              <Box key={idx} sx={{ textAlign: 'center' }}>
+                <Tooltip title={`Index: ${idx}`}>
+                  <Paper
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      bgcolor: isSelected ? '#1f6feb' : '#161b22',
+                      border: `2px solid ${isSelected ? '#58a6ff' : '#2196f3'}`,
+                      color: '#fff',
+                      fontWeight: 'bold',
+                      fontSize: '1.1rem',
+                      borderRadius: 2,
+                      transition: 'all 0.3s ease',
+                      transform: isSelected ? 'scale(1.05)' : 'scale(1)',
+                    }}>
+                    {val}
+                  </Paper>
+                </Tooltip>
+                <Typography
+                  variant='caption'
+                  sx={{ color: '#8b949e', mt: 0.5, display: 'block' }}>
+                  [{idx}]
+                </Typography>
+              </Box>
+            )
+          })}
+        </Box>
+      </Paper>
 
-      <Tabs value={mode} onChange={(_, v) => setMode(v)} centered sx={{mb: 4}}>
-        <Tab icon={<NumbersIcon />} label='Числа' />
-        <Tab icon={<TextFormatIcon />} label='Слово' />
-      </Tabs>
-
-      <Grid container spacing={4}>
-        <Grid size={{xs: 12, lg: 7}}>
+      <Grid container spacing={3}>
+        {/* Блок 1: Настройка индексов и теория */}
+        <Grid size={{ xs: 12, md: 5 }}>
           <Paper
             sx={{
               p: 3,
               bgcolor: '#161b22',
               border: '1px solid #30363d',
-              borderRadius: 4,
-              minHeight: 380,
+              borderRadius: 3,
+              height: '100%',
               display: 'flex',
               flexDirection: 'column',
+              justifyContent: 'space-between',
             }}>
-            <Paper
-              elevation={0}
-              sx={{
-                p: 2,
-                mb: 4,
-                bgcolor: isPaused
-                  ? 'rgba(210, 153, 34, 0.1)'
-                  : 'rgba(56, 139, 253, 0.1)',
-                border: '1px solid #30363d',
-                borderRadius: 2,
-                display: 'flex',
-                gap: 2,
-              }}>
-              <InfoOutlinedIcon
-                sx={{color: isPaused ? '#e3b341' : '#58a6ff'}}
-              />
-              <Typography variant='body1' sx={{color: '#adbac7'}}>
-                {explanation}
+            <Box>
+              <Typography
+                variant='subtitle1'
+                sx={{ color: '#00bcd4', mb: 2, fontWeight: 'bold' }}>
+                Параметры Swap
               </Typography>
-            </Paper>
 
-            <Box
-              sx={{
-                display: 'flex',
-                gap: 1,
-                justifyContent: 'center',
-                mb: 8,
-                alignItems: 'flex-end',
-                flexHeight: 100,
-              }}>
-              {data.map((val, idx) => (
-                <Box key={idx} sx={{textAlign: 'center'}}>
-                  <Typography
-                    variant='caption'
+              <Grid container spacing={2} sx={{ mb: 2 }}>
+                <Grid size={{ xs: 6 }}>
+                  <TextField
+                    label='Индекс i'
+                    type='number'
+                    size='small'
+                    fullWidth
+                    value={index1}
+                    onChange={(e) => setIndex1(Number(e.target.value))}
+                    inputProps={{ min: 0, max: array.length - 1 }}
                     sx={{
-                      color:
-                        pointers?.i === idx
-                          ? '#4caf50'
-                          : pointers?.j === idx
-                            ? '#f44336'
-                            : '#8b949e',
-                    }}>
-                    {pointers?.i === idx
-                      ? 'i'
-                      : pointers?.j === idx
-                        ? 'j'
-                        : idx}
-                  </Typography>
-                  <Paper
+                      input: { color: '#fff' },
+                      label: { color: '#8b949e' },
+                      fieldset: { borderColor: '#30363d' },
+                    }}
+                  />
+                </Grid>
+                <Grid size={{ xs: 6 }}>
+                  <TextField
+                    label='Индекс j'
+                    type='number'
+                    size='small'
+                    fullWidth
+                    value={index2}
+                    onChange={(e) => setIndex2(Number(e.target.value))}
+                    inputProps={{ min: 0, max: array.length - 1 }}
                     sx={{
-                      width: 50,
-                      height: 60,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '1.2rem',
-                      fontWeight: 'bold',
-                      bgcolor:
-                        pointers?.i === idx || pointers?.j === idx
-                          ? '#1f6feb'
-                          : '#0d1117',
-                      border: '2px solid',
-                      borderColor:
-                        pointers?.i === idx
-                          ? '#4caf50'
-                          : pointers?.j === idx
-                            ? '#f44336'
-                            : '#30363d',
-                      borderRadius: mode === 1 ? '50%' : 2,
-                      transition: '0.3s',
-                    }}>
-                    {val}
-                  </Paper>
-                </Box>
-              ))}
+                      input: { color: '#fff' },
+                      label: { color: '#8b949e' },
+                      fieldset: { borderColor: '#30363d' },
+                    }}
+                  />
+                </Grid>
+              </Grid>
 
-              <Box sx={{ml: 4, textAlign: 'center'}}>
-                <Typography variant='caption' sx={{color: '#ff9800'}}>
-                  temp
-                </Typography>
-                <Paper
-                  sx={{
-                    width: 50,
-                    height: 50,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    bgcolor: '#21262d',
-                    border: '2px dashed #ff9800',
-                    color: '#ff9800',
-                  }}>
-                  {tempValue ?? ''}
-                </Paper>
-              </Box>
+              <Button
+                fullWidth
+                variant='contained'
+                startIcon={<SwapHorizIcon />}
+                onClick={handleSwap}
+                sx={{ bgcolor: '#238636', mb: 2, '&:hover': { bgcolor: '#2ea043' } }}>
+                Поменять местами
+              </Button>
+
+              <Button
+                fullWidth
+                variant='outlined'
+                color='inherit'
+                startIcon={<ReplayIcon />}
+                onClick={handleReset}
+                sx={{ borderColor: '#30363d', color: '#8b949e' }}>
+                Сбросить массив
+              </Button>
             </Box>
 
-            <Stack
-              direction='row'
-              spacing={2}
-              justifyContent='center'
-              sx={{mt: 'auto'}}>
-              {!isProcessing ? (
-                <Button
-                  variant='contained'
-                  color='success'
-                  onClick={startSwap}
-                  startIcon={<PlayArrowIcon />}>
-                  Старт
-                </Button>
-              ) : (
-                <Button
-                  variant='contained'
-                  color='warning'
-                  onClick={togglePause}
-                  startIcon={isPaused ? <PlayArrowIcon /> : <PauseIcon />}>
-                  {isPaused ? 'Продолжить' : 'Пауза'}
-                </Button>
-              )}
-              <Button
-                variant='outlined'
-                onClick={reset}
-                startIcon={<RestartAltIcon />}>
-                Сброс
-              </Button>
-            </Stack>
+            <Alert
+              severity='info'
+              sx={{
+                mt: 3,
+                bgcolor: 'transparent',
+                color: '#8b949e',
+                border: '1px solid #30363d',
+              }}>
+              В Python обмен реализуется через множественное присваивание: <br />
+              <code>arr[i], arr[j] = arr[j], arr[i]</code>
+            </Alert>
           </Paper>
         </Grid>
 
-        <Grid size={{xs: 12, lg: 5}}>
+        {/* Блок 2: Виртуальная консоль логов */}
+        <Grid size={{ xs: 12, md: 7 }}>
           <Paper
             sx={{
               p: 3,
-              bgcolor: '#0d1117',
+              bgcolor: '#161b22',
               border: '1px solid #30363d',
-              borderRadius: 4,
+              borderRadius: 3,
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
             }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+              <Typography
+                variant='subtitle1'
+                sx={{ color: '#4caf50', fontWeight: 'bold' }}>
+                Виртуальная консоль Python
+              </Typography>
+              <Box
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  bgcolor: '#238636',
+                  alignSelf: 'center',
+                }}
+              />
+            </Box>
+
             <Box
               sx={{
-                p: 2,
-                bgcolor: '#161b22',
+                flex: 1,
+                bgcolor: '#0d1117',
+                border: '1px solid #30363d',
                 borderRadius: 2,
+                p: 2,
                 fontFamily: 'monospace',
-                minHeight: 260,
+                fontSize: '0.85rem',
+                color: '#8b949e',
+                maxHeight: 220,
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1,
               }}>
-              {codeLines.map((line) => (
+              {log.map((entry, index) => (
                 <Box
-                  key={line.id}
+                  key={index}
                   sx={{
-                    pl: line.indent / 4,
-                    bgcolor:
-                      activeLine === line.id
-                        ? 'rgba(76, 175, 80, 0.2)'
-                        : 'transparent',
-                    color: activeLine === line.id ? '#4caf50' : '#d1d5db',
-                    borderLeft:
-                      activeLine === line.id
-                        ? '3px solid #4caf50'
-                        : '3px solid transparent',
-                    whiteSpace: 'pre',
-                    fontSize: '0.9rem',
-                    lineHeight: 1.8,
+                    borderBottom: '1px solid #161b22',
+                    pb: 0.5,
+                    color: index === 0 ? '#58a6ff' : '#8b949e',
                   }}>
-                  {line.text}
+                  {entry}
                 </Box>
               ))}
             </Box>
           </Paper>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   )
 }
+
+export default ArraySwapComponent

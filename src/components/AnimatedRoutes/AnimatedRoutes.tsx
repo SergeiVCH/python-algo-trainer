@@ -1,31 +1,31 @@
 import Container from '@mui/material/Container'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import {AnimatePresence, motion} from 'framer-motion'
+import {Route, Routes, useLocation} from 'react-router-dom'
 
-import { FunctionsAndProceduresVisualizer } from '../10/FunctionsAndProceduresVisualizer/FunctionsAndProceduresVisualizer'
-import { PythonArithmetic } from '../6/III/PythonArithmetic/PythonArithmetic'
-import { PythonTypes } from '../6/III/PythonTypes/PythonTypes'
-import { FileTypeExplorer } from '../7/I/FileTypeExplorer/FileTypeExplorer'
-import { PythonBranchingLab } from '../7/III/PythonBranchingLab/PythonBranchingLab'
-import { PythonComparisonLab } from '../7/III/PythonComparisonLab/PythonComparisonLab'
-import { PythonFilesLab } from '../7/III/PythonFilesLab/PythonFilesLab'
-import { PythonIfVisualizer } from '../7/III/PythonIfVisualizer/PythonIfVisualizer'
-import { PythonLifeLogic } from '../7/III/PythonLogicLab/PythonLogicLab'
-import { PythonTracer } from '../8/II/PythonTracer/PythonTracer'
-import { ForLoopVisualizer } from '../8/III/ForLoopVisualizer/ForLoopVisualizer'
-import { LoopBreakLab } from '../8/III/LoopBreakLab/LoopBreakLab'
-import { LoopContinueLab } from '../8/III/LoopContinueLab/LoopContinueLab'
-import { WhileLoopVisualizer } from '../8/III/WhileLoopVisualizer/WhileLoopVisualizer'
-import { ArraySearchComponent } from '../9/III/ArraySearchComponent/ArraySearchComponent'
-import { ArraySwapComponent } from '../9/III/ArraySwapComponent/ArraySwapComponent'
-import { ListMethodsComponent } from '../9/III/ListMethodsComponent/ListMethodsComponent'
-import { SortingVisualizer } from '../9/III/SortingVisualizer/SortingVisualizer'
-import { TwoDimensionalArrayComponent } from '../9/III/TwoDimensionalArrayComponent/TwoDimensionalArrayComponent'
-import { PygameAnimationComponent } from '../9/IV/PygameAnimationComponent/PygameAnimationComponent'
-import { PygameGraphicsComponent } from '../9/IV/PygameGraphicsComponent/PygameGraphicsComponent'
-import { PygameIntroComponent } from '../9/IV/PygameIntroComponent/PygameIntroComponent'
-import { BackButton } from '../BackButton/BackButton'
-import { HomeMenu } from '../HomeMenu/HomeMenu'
+import {FunctionsAndProceduresVisualizer} from '../10/FunctionsAndProceduresVisualizer/FunctionsAndProceduresVisualizer'
+import {PythonArithmetic} from '../6/III/PythonArithmetic/PythonArithmetic'
+import {PythonTypes} from '../6/III/PythonTypes/PythonTypes'
+import {FileTypeExplorer} from '../7/I/FileTypeExplorer/FileTypeExplorer'
+import {PythonBranchingLab} from '../7/III/PythonBranchingLab/PythonBranchingLab'
+import {PythonComparisonLab} from '../7/III/PythonComparisonLab/PythonComparisonLab'
+import {PythonFilesLab} from '../7/III/PythonFilesLab/PythonFilesLab'
+import {PythonIfVisualizer} from '../7/III/PythonIfVisualizer/PythonIfVisualizer'
+import {PythonLifeLogic} from '../7/III/PythonLogicLab/PythonLogicLab'
+import {PythonTracer} from '../8/II/PythonTracer/PythonTracer'
+import {ForLoopVisualizer} from '../8/III/ForLoopVisualizer/ForLoopVisualizer'
+import {LoopBreakLab} from '../8/III/LoopBreakLab/LoopBreakLab'
+import {LoopContinueLab} from '../8/III/LoopContinueLab/LoopContinueLab'
+import {WhileLoopVisualizer} from '../8/III/WhileLoopVisualizer/WhileLoopVisualizer'
+import {ArraySearchComponent} from '../9/III/ArraySearchComponent/ArraySearchComponent'
+import {ArraySwapComponent} from '../9/III/ArraySwapComponent/ArraySwapComponent'
+import {ListMethodsComponent} from '../9/III/ListMethodsComponent/ListMethodsComponent'
+import {SortingVisualizer} from '../9/III/SortingVisualizer/SortingVisualizer'
+import {TwoDimensionalArrayComponent} from '../9/III/TwoDimensionalArrayComponent/TwoDimensionalArrayComponent'
+import {PygameAnimationComponent} from '../9/IV/PygameAnimationComponent/PygameAnimationComponent'
+import {PygameGraphicsComponent} from '../9/IV/PygameGraphicsComponent/PygameGraphicsComponent'
+import {PygameIntroComponent} from '../9/IV/PygameIntroComponent/PygameIntroComponent'
+import {BackButton} from '../BackButton/BackButton'
+import {HomeMenu} from '../HomeMenu/HomeMenu'
 
 export const AnimatedRoutes = () => {
   const location = useLocation() // Получаем текущий путь (например, "/logic")
@@ -150,6 +150,14 @@ export const AnimatedRoutes = () => {
           }
         />
         // 9
+        <Route
+          path='/arrays'
+          element={
+            <PageWrapper>
+              <ArraySwapComponent />
+            </PageWrapper>
+          }
+        />
         <Route
           path='/array-search'
           element={

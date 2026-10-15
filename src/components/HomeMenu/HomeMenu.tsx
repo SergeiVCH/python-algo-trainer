@@ -16,10 +16,10 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Search } from 'lucide-react'
-import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import {AnimatePresence, motion} from 'framer-motion'
+import {Search} from 'lucide-react'
+import {useMemo, useState} from 'react'
+import {Link} from 'react-router-dom'
 
 // Иконки
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
