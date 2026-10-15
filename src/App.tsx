@@ -60,6 +60,8 @@ const menuGroups = [
         items: [
           {label: 'Работа с файлами', path: '/python-files'},
           {label: 'Python Логика', path: '/python-if-visualizer'},
+          {label: 'Вложенные условия Python', path: '/python-branching'},
+          {label: 'Операторы сравнения', path: '/python-comparison'},
         ],
       },
     ],
@@ -71,7 +73,13 @@ const menuGroups = [
     sections: [
       {
         title: 'Программирование алгоритмов на языке Python',
-        items: [{label: 'Работа циклов', path: '/loops'}],
+        items: [
+          {label: 'Цикл While в Python', path: '/python-while'},
+          {label: 'Цикл For в Python', path: '/python-for'},
+          {label: 'Оператор continue', path: '/python-continue'},
+          {label: 'Оператор break', path: '/python-break'},
+          {label: 'Трассировка', path: '/python-trace'},
+        ],
       },
     ],
   },
@@ -82,7 +90,22 @@ const menuGroups = [
     sections: [
       {
         title: 'Программирование Python',
-        items: [{label: 'Одномерные массивы', path: '/arrays'}],
+        items: [
+          {label: 'Одномерные массивы', path: '/arrays'},
+          {label: 'Поиск в массивах', path: '/array-search'},
+          {label: 'Перестановка элементов', path: '/array-swap'},
+          {label: 'Двумерные массивы', path: '/2d-arrays'},
+          {label: 'Сортировка массивов', path: '/sorting'},
+          {label: 'Методы списков', path: '/list-methods'},
+        ],
+      },
+      {
+        title: 'Создание 2D-игры на языке программирования python',
+        items: [
+          {label: 'Основы Pygame', path: '/pygame-intro'},
+          {label: 'Создание окна для игры', path: '/pygame-graphics'},
+          {label: 'Анимация персонажа', path: '/pygame-animation'},
+        ],
       },
     ],
   },
@@ -95,6 +118,7 @@ const menuGroups = [
         title: 'Алгоритмизация и программирование',
         items: [
           {label: 'Функции и процедуры в Python', path: '/python-functions'},
+          {label: 'Работа со строками в Python', path: '/string-lab'},
         ],
       },
     ],
