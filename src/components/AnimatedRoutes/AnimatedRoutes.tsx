@@ -26,6 +26,7 @@ import {PygameGraphicsComponent} from '../9/IV/PygameGraphicsComponent/PygameGra
 import {PygameIntroComponent} from '../9/IV/PygameIntroComponent/PygameIntroComponent'
 import {BackButton} from '../BackButton/BackButton'
 import {HomeMenu} from '../HomeMenu/HomeMenu'
+import {StringLab} from '../10/StringLab/StringLab';
 
 export const AnimatedRoutes = () => {
   const location = useLocation() // Получаем текущий путь (например, "/logic")
@@ -228,6 +229,14 @@ export const AnimatedRoutes = () => {
           element={
             <PageWrapper>
               <FunctionsAndProceduresVisualizer />
+            </PageWrapper>
+          }
+        />
+        <Route
+          path='/string-lab'
+          element={
+            <PageWrapper>
+              <StringLab />
             </PageWrapper>
           }
         />

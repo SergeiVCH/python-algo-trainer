@@ -43,6 +43,7 @@ import StorageIcon from '@mui/icons-material/Storage'
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz'
 import TerminalIcon from '@mui/icons-material/Terminal'
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset'
+import TextFieldsIcon from '@mui/icons-material/TextFields'
 
 // --- ДАННЫЕ ВЫНЕСЕНЫ ДЛЯ УДОБСТВА ФИЛЬТРАЦИИ ---
 const categories = [
@@ -253,6 +254,13 @@ const categories = [
             icon: <TerminalIcon />,
             path: '/python-functions',
             color: '#ffeb3b',
+          },
+          {
+            title: 'Работа со строками в Python',
+            desc: 'Интерактивная визуализация символов, индексов, срезов и методов обработки строк в Python.',
+            icon: <TextFieldsIcon />,
+            path: '/string-lab',
+            color: '#2196f3',
           },
         ],
       },
