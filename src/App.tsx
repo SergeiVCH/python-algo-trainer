@@ -127,10 +127,7 @@ const menuGroups = [
             label: 'Работа с файлами в Python',
             path: '/python-files-lab',
           },
-          {
-            label: 'Алгоритмы на графах в Python',
-            path: '/graph-lab',
-          },
+         
         ],
       },
     ],

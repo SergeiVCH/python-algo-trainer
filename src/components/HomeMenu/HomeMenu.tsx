@@ -16,10 +16,10 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import {AnimatePresence, motion} from 'framer-motion'
-import {Search} from 'lucide-react'
-import {useMemo, useState} from 'react'
-import {Link} from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Search } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // Иконки
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
@@ -29,6 +29,7 @@ import BugReportIcon from '@mui/icons-material/BugReport'
 import CodeIcon from '@mui/icons-material/Code'
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import FunctionsIcon from '@mui/icons-material/Functions'
 import GridOnIcon from '@mui/icons-material/GridOn'
 import ImageIcon from '@mui/icons-material/Image'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
@@ -42,10 +43,8 @@ import SortIcon from '@mui/icons-material/Sort'
 import StorageIcon from '@mui/icons-material/Storage'
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz'
 import TerminalIcon from '@mui/icons-material/Terminal'
-import VideogameAssetIcon from '@mui/icons-material/VideogameAsset'
 import TextFieldsIcon from '@mui/icons-material/TextFields'
-import FunctionsIcon from '@mui/icons-material/Functions'
-import AccountTreeIcon from '@mui/icons-material/AccountTree'
+import VideogameAssetIcon from '@mui/icons-material/VideogameAsset'
 
 // --- ДАННЫЕ ВЫНЕСЕНЫ ДЛЯ УДОБСТВА ФИЛЬТРАЦИИ ---
 const categories = [
@@ -278,13 +277,7 @@ const categories = [
             path: '/python-files-lab',
             color: '#9c27b0',
           },
-          {
-            title: 'Алгоритмы на графах в Python',
-            desc: 'Интерактивная визуализация словарей смежности, обхода в ширину (BFS) и в глубину (DFS).',
-            icon: <AccountTreeIcon />,
-            path: '/graph-lab',
-            color: '#3fb950',
-          },
+          
         ],
       },
     ],
